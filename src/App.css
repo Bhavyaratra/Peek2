@@ -18,10 +18,10 @@ body {
   background-color:rgb(26, 26, 26);
   min-height: 8vh;
   display: flex;
-  /* flex-direction: column; */
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  justify-content: left;
+  font-size: 20px;
   color: white;
 }
 
