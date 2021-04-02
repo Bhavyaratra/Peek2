@@ -35,7 +35,9 @@ textarea{
 }
 
 input[type=submit] {
-    padding: 6px 25px;
+    width: 50%;
+    margin-top: 5px;
+    padding: 6px ;
     background: #373E4A;
     color: #C1C3C6;
     font-weight: bold;
