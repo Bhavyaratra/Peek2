@@ -1,0 +1,28 @@
+form{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+input[type=text]{
+    width: 75vh;
+    height: 40px;
+    border: solid rgb(22, 21, 21) ;
+    border-radius: 4px;
+    background-color:rgb(22, 21, 21);
+    color: white;
+}
+
+textarea{
+    width: 75vh;
+    min-height: 30vh; 
+    margin-top: 5px;
+    border: solid rgb(22, 21, 21) ;
+    border-radius: 4px;
+    background-color:rgb(22, 21, 21);
+    color: white;
+    resize: none;
+}
