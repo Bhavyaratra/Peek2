@@ -2,6 +2,6 @@ import React from "react";
 
 export default function Name(){
     return(<>
-    <p>Peek</p>
+    <p>&nbsp;Peek 2.0</p>
     </>);
 }
