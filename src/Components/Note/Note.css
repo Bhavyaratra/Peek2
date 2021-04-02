@@ -35,10 +35,11 @@ textarea{
 }
 
 input[type=submit] {
-    width: 50%;
+
     margin-top: 5px;
-    padding: 6px ;
-    background: #373E4A;
+    width: 50%;
+    padding: 6px 25px;
+    background: crimson;
     color: #C1C3C6;
     font-weight: bold;
     border: 0 none;

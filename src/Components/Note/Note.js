@@ -5,10 +5,11 @@ import Submit from './Buttons/Submit'
 import './Note.css';
 
 export default function Note(){
-    return(<form>
+    return(<form method="POST">
         <Title/>
         <br/>
         <Content/>
+        <br/>
        <Submit/>
     </form>);
 }
