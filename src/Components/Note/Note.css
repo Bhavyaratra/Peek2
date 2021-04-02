@@ -9,7 +9,7 @@ form{
 }
 
 input[type=text]{
-    width: 75%;
+    width: 50%;
     height: 40px;
     border: solid rgb(22, 21, 21) ;
     border-radius: 4px;
@@ -23,7 +23,7 @@ input[type=text],textarea:focus{
 }
 
 textarea{
-    width: 75vh;
+    width: 50%;
     min-height: 30px; 
     margin-top: 5px;
     border: solid rgb(22, 21, 21) ;
@@ -32,4 +32,14 @@ textarea{
     color: white;
     font-size: 18px;
     resize: none;
+}
+
+input[type=submit] {
+    padding: 6px 25px;
+    background: #373E4A;
+    color: #C1C3C6;
+    font-weight: bold;
+    border: 0 none;
+    cursor: pointer;
+    border-radius: 3px;
 }
