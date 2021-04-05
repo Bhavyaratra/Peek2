@@ -1,7 +1,7 @@
 import React from 'react';
 import './Note.css';
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 
 export default function Note(){
