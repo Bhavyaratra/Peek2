@@ -2,6 +2,7 @@ const note = require('../models/notes');
 
 const start =(req,res)=>{
     res.send('Starting api page');
+
 }
 
 const show = (req,res)=>{
@@ -14,8 +15,16 @@ const show = (req,res)=>{
     })
 }
 
-const save = (req,res)=>{
-    newnote = new note;
+const save = async (req,res)=>{
+    console.log("post");
+    const newnote = new note(req.body);
+    newnote.save()
+    .then((result)=>{
+        console.log('note saved');
+    })
+    .catch((err)=>{
+        console.log(err);
+    })
     console.log(newnote);
 }
 
