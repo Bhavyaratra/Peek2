@@ -1,4 +1,3 @@
-
 const express = require('express');
 const port = process.env.PORT || 3001;
 const app = express();
@@ -7,6 +6,8 @@ const routes = require('./router/routes');
 
 app.use(express.json({limit:"30mb",extended: true}));
 app.use(express.urlencoded({limit:"30mb",extended: true}));
+
+require('./db/conn');
 
 //app.use(urlencoded=true);
 app.listen(port,function(err){
