@@ -1,6 +1,8 @@
 import './App.css';
 import Navbar from './Components/Navigation/Nav';
 import Note from './Components/Note/Note';
+import {AllNotes} from './Components/Note/AllNotes';
+
 
 function App() {
   return (<>
@@ -9,6 +11,8 @@ function App() {
         </div> 
 
           <Note/>
+          <br/>
+          <AllNotes/>
           
         </>
   );

@@ -8,7 +8,7 @@ const start =(req,res)=>{
 const show = (req,res)=>{
     note.find()
     .then((result)=>{
-        res.json(result);
+        res.json( result);
     })
     .catch((err)=>{
         res.send('404'+err);
