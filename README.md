@@ -2,7 +2,6 @@
 <img src="https://i.imgur.com/B4PU9qp.png"/>
 
 ## Tech used
-
 ```
 node.js
 Express
