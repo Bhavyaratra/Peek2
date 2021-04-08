@@ -47,6 +47,14 @@ export const AllNotes = ()=>{
           },
       }));
       const classes = useStyles();
+
+     async function del(id){
+        console.log(id);
+       await fetch('/api/notes/'+id,{method: 'DELETE'})
+        .then(()=>console.log("deleted "+id))
+        .catch(()=>console.log("not deleted"));
+      }
+
     return(<div >
         <h1>ALL NOTES</h1>
         {/* <ul className="list"> */}
@@ -62,7 +70,7 @@ export const AllNotes = ()=>{
                     {notes.content}
                     </Typography>
                 </CardContent>
-                <IconButton aria-label="delete" className={classes.FloatRight} >
+                <IconButton aria-label="delete" className={classes.FloatRight} onClick={()=>del(notes._id)} >
                   <DeleteIcon fontSize="small" />
                 </IconButton>
             </Card>
