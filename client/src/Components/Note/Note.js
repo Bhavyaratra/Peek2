@@ -40,7 +40,7 @@ const apiPost = async () => {
     console.log(inputs);
   };
 
-    return(<form onSubmit={handleSubmit}>
+    return(<form className="input-new-note" onSubmit={handleSubmit}>
         <input 
             type="text"
             name="title" 
