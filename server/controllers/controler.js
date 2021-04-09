@@ -32,7 +32,7 @@ const deleteNote = async (req,res)=>{
     const id = req.params.id;
     note.findByIdAndDelete(id)
     .then(()=>{
-        console.log("deleted")
+      
     })
     .catch(()=>{
         console.log("error while deleting");
