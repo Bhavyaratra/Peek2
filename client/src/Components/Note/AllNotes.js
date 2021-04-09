@@ -37,6 +37,7 @@ export const AllNotes = ()=>{
           marginTop: 10,
           background: 'rgb(39, 39, 39)',
           color: 'white',
+          borderRadius: '8px',
         },
         TextArea:{
           background: '#272727',

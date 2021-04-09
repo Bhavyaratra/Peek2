@@ -5,8 +5,8 @@ const start =(req,res)=>{
 
 }
 
-const show = (req,res)=>{
-    note.find()
+const show = async (req,res)=>{
+    note.find().sort({createdAt: -1})
     .then((result)=>{
         res.json( result);
     })
