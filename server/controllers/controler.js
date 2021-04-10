@@ -1,3 +1,4 @@
+const notes = require('../models/notes');
 const note = require('../models/notes');
 
 const start =(req,res)=>{
@@ -39,6 +40,16 @@ const deleteNote = async (req,res)=>{
     })
 }
 
+const updateNote= async (req,res)=>{
+    const id= req.params.id;
+    notes.findByIdAndUpdate(id)
+    .then((result)=>{
+        console.log(result);
+    })
+    .catch(()=>{
+        console.log("not updated"); 
+    })
+}
 
 const save = async (req,res)=>{
     console.log("post");
@@ -54,5 +65,5 @@ const save = async (req,res)=>{
 }
 
 module.exports = {
-    start,show,save,getNote,deleteNote,
+    start,show,save,getNote,deleteNote,updateNote,
 }
