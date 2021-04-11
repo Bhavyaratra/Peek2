@@ -7,9 +7,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
-import Typography from '@material-ui/core/Typography';
-
-import TextField from '@material-ui/core/TextField';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 
 import IconButton from '@material-ui/core/IconButton';
@@ -19,7 +16,12 @@ import SaveRoundedIcon from '@material-ui/icons/SaveRounded';
 
 
 export const AllNotes = ()=>{
-    const [data, setdata] = useState([])
+    const [data, setdata] = useState([]);
+    const [input,setInput] = useState({
+      id:"",
+      title:"",
+      content:""
+    });
 
     useEffect(()=>{
      fetch('/api/notes').then(res=>{
@@ -28,6 +30,10 @@ export const AllNotes = ()=>{
             }
         }).then(data =>setdata(data))
     });
+
+    useEffect(()=>{
+        console.log(input);
+    },[input]);
 
     const useStyles = makeStyles((theme) => ({
         root: {
@@ -64,12 +70,54 @@ export const AllNotes = ()=>{
 
     const classes = useStyles();
 
-     async function del(id){
+    async function del(id){
         console.log(id);
        await fetch('/api/notes/'+id,{method: 'DELETE'})
         .then(()=>console.log("deleted "+id))
         .catch(()=>console.log("not deleted"));
       }
+
+      function handleSelect(id,title,content){
+        if(input.id !== id)
+          setInput({...input,
+            id: id,
+            title: title,
+            content: content
+          })
+
+      }
+        
+      function handleChange(target){
+        
+         setInput ({ ...input,
+          [target.name]: target.value,
+          
+        })
+        
+      }
+  
+    async function edit(id){
+      console.log(id);
+      if(input.id===id){
+        await fetch('/api/notes/'+id,{
+          method: 'PATCH',
+          body:JSON.stringify({
+            title:input.title,
+            content:input.content 
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+          
+        })
+        .then(()=>{
+          console.log(" found and edited");
+        })
+        .catch(()=>{
+          console.log("not edited")
+        })
+     }
+    }  
 
     return(<div >
         <h1>ALL NOTES</h1>
@@ -78,27 +126,34 @@ export const AllNotes = ()=>{
             {data.map((notes)=>(
                 <div className="card" key={notes._id} >
             <Card className={classes.root}>
-                <CardContent className="elements" >
+                <CardContent className="elements">
 
                 <TextareaAutosize
-                  id="standard-basic"
+                  id={notes._id}
                   label="Standard"
+                  name="title"
                   className={classes.TitleArea} 
                   defaultValue={notes.title}
+                  onChange={ (e)=>handleChange(e.target)}
+                  onSelect={(e)=>handleSelect(notes._id,notes.title,notes.content)}
                 />
                 <br/>
-                <TextareaAutosize 
+                <TextareaAutosize
+                    id={notes._id}
+                    name="content" 
                     className={classes.TextArea}
                     aria-label="minimum height" 
                     defaultValue={notes.content}
+                    onChange={(e)=>handleChange(e.target)}
+                    onSelect={(e)=>handleSelect(notes._id,notes.title,notes.content)}
                 />    
 
-                </CardContent>
+                </CardContent >
 
                 <IconButton aria-label="delete" className={classes.FloatRight} onClick={()=>del(notes._id)} >
                   <DeleteIcon fontSize="small" />
                 </IconButton>
-                <IconButton aria-label="delete" className={classes.FloatRight} onClick={()=>console.log("edited")} >
+                <IconButton aria-label="SveRoudedIcon" className={classes.FloatRight} onClick={()=>edit(notes._id)} >
                   <SaveRoundedIcon fontSize="small" />
                 </IconButton>
 
