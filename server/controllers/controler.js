@@ -40,15 +40,19 @@ const deleteNote = async (req,res)=>{
     })
 }
 
-const updateNote= async (req,res)=>{
+const patchNote= async (req,res)=>{
     const id= req.params.id;
-    notes.findByIdAndUpdate(id)
-    .then((result)=>{
-        console.log(result);
-    })
-    .catch(()=>{
+    try{
+        const note = await notes.findByIdAndUpdate(id)
+        note.title = req.body.title
+        note.content = req.body.content
+        note.save()
+        .then((result)=>console.log(result))
+        .catch((error)=>console.log(error+" id not found"))
+    }
+    catch{
         console.log("not updated"); 
-    })
+    }
 }
 
 const save = async (req,res)=>{
@@ -65,5 +69,10 @@ const save = async (req,res)=>{
 }
 
 module.exports = {
-    start,show,save,getNote,deleteNote,updateNote,
+    start,
+    show,
+    save,
+    getNote,
+    deleteNote,
+    patchNote
 }

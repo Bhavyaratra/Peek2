@@ -8,9 +8,9 @@ router.get('/notes/:id',Controller.getNote);
 ////////////////////////////////////
 
 router.delete('/notes/:id',Controller.deleteNote);
-router.put('/notes/:id',Controller.updateNote);
 
 ////////////////////////////////////
+router.patch('/notes/:id',Controller.patchNote);
 router.post('/notes',Controller.save);
 
 module.exports = router;
