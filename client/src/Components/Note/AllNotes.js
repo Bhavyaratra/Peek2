@@ -13,7 +13,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveRoundedIcon from '@material-ui/icons/SaveRounded';
 
-
+// TODO OnChange execute edit function and save 
 
 export const AllNotes = ()=>{
     const [data, setdata] = useState([]);
@@ -78,12 +78,14 @@ export const AllNotes = ()=>{
       }
 
       function handleSelect(id,title,content){
-        if(input.id !== id)
+        if(input.id !== id){
           setInput({...input,
             id: id,
             title: title,
             content: content
-          })
+          });
+          
+        }
 
       }
         
@@ -93,7 +95,7 @@ export const AllNotes = ()=>{
           [target.name]: target.value,
           
         })
-        
+
       }
   
     async function edit(id){
