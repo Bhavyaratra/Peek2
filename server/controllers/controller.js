@@ -45,12 +45,17 @@ const deleteNote = async (req,res)=>{
 const patchNote= async (req,res)=>{
     const id= req.params.id;
     try{
-        const note = await notes.findByIdAndUpdate(id)
-        note.title = req.body.title
-        note.content = req.body.content
-        note.save()
+        const editNote = await note.findByIdAndUpdate(id)
+        try{
+        editNote.title = req.body.title
+        editNote.content = req.body.content
+        editNote.save()
         .then((result)=>console.log(result))
         .catch((error)=>console.log(error+" id not found"))
+        }
+        catch(error){
+            console.log(error);
+        }
     }
     catch{
         console.log("not updated"); 
@@ -101,14 +106,7 @@ const saveUser = async (req,res)=>{
     {
         if(newUser.password===newUser.password2){
             const token =await newUser.generateAuthToken();
-            newUser.tokens= newUser.tokens.concat({token: token})
-            newUser.save()
-            .then((result)=>{
-                res.json(result);
-            })
-            .catch((err)=>{
-                res.json(err);
-            })
+            console.log(token)
           }
           else{
               res.json('password does not match')
@@ -120,7 +118,8 @@ const saveUser = async (req,res)=>{
     
 }
 
-const loginUser = (req,res)=>{
+const loginUser = async (req,res)=>{
+
     const loginEmail = req.body.email;
     const loginPassword = req.body.password;
 
@@ -130,9 +129,10 @@ const loginUser = (req,res)=>{
             const token = result.generateAuthToken();
 
             res.cookie("jwt",token,{
-                httpOnly:true
+                httpOnly:true,
             });
             res.send("user logged in");
+            console.log(result.name+" loggedin")
             //! redirect to home page
 
          }
@@ -143,7 +143,6 @@ const loginUser = (req,res)=>{
     .catch(()=>{
         res.send("Email not found");
     })
-
 }
 
 
