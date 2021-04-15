@@ -5,7 +5,7 @@ const auth = require('../auth/authenticate')
 
 //* Notes get requests 
 router.get('/',Controller.start);
-router.get('/notes',Controller.show);
+router.get('/notes',auth,Controller.show);
 router.get('/notes/:id',Controller.getNote);
 
 //* Users get requests 
@@ -20,7 +20,7 @@ router.patch('/notes/:id',Controller.patchNote);
 router.post('/notes',auth,Controller.save);
 
 router.post('/register',Controller.saveUser);
-router.post('/login',auth,Controller.loginUser);
+router.post('/login',Controller.loginUser);
 module.exports = router;
 
  

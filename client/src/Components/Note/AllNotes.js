@@ -1,6 +1,7 @@
 
 import React from 'react';
 import {useEffect,useState} from 'react';
+import{useHistory} from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -16,6 +17,8 @@ import SaveRoundedIcon from '@material-ui/icons/SaveRounded';
 // TODO OnChange execute edit function and save 
 
 export const AllNotes = ()=>{
+
+    const history= useHistory();
     const [data, setdata] = useState([]);
     const [input,setInput] = useState({
       id:"",
@@ -25,10 +28,16 @@ export const AllNotes = ()=>{
 
     useEffect(()=>{
      fetch('/api/notes').then(res=>{
-            if(res.ok){
+            if(res!=='400'){
                 return res.json()
             }
+            else{
+              history.push("/login");
+            }
         }).then(data =>setdata(data))
+        .catch((err)=>{
+          history.push("/login");
+        })
     });
 
     useEffect(()=>{

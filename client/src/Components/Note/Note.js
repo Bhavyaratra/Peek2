@@ -2,16 +2,18 @@ import React from 'react';
 import './Note.css';
 
 import { useState } from "react";
+import{useHistory} from 'react-router-dom';
 
 
 export default function Note(){
 
     
 const [inputs, setInputs] = useState({});
+const history= useHistory();
 
 const apiPost = async () => {
-    
-    await fetch("api/notes", {
+   try{ 
+    const res = await fetch("api/notes", {
       method: "POST",
       body: JSON.stringify({
         title: inputs.title,
@@ -21,8 +23,20 @@ const apiPost = async () => {
         "Content-type": "application/json; charset=UTF-8",
       },
     })
-      .then((response) => response.json())
-      .then((json) => console.log(json));
+    console.log(res.status)
+    const response = await res.json(); 
+        if(res.status===400){
+          console.log(response)
+          history.push("/login")
+          }
+      
+    
+    }
+    catch{
+      console.log("note not posted")
+    }
+     
+
   };
 
   const handleChange = (event) => {
