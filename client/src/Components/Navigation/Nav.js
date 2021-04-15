@@ -23,7 +23,8 @@ const useStyles = makeStyles((theme) => ({
       background: "crimson",
       '&:hover': {
           background: "white"
-      }
+      },
+      marginRight: theme.spacing(2)
   },
   appBar:{
       background: 'black'
@@ -45,6 +46,9 @@ export default function ButtonAppBar() {
           </Typography>
           <Link to="/login">
           <Button color="inherit" className={classes.navButton}>Login</Button>
+          </Link>
+          <Link to="/register">
+          <Button color="inherit" className={classes.navButton}>Signup</Button>
           </Link>
         </Toolbar>
       </AppBar>

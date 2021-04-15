@@ -57,20 +57,24 @@ const useStyles = makeStyles(()=>({
  
 }))
 
-export default function Login(){
+export default function Register(){
     const history = useHistory();
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [password2, setPassword2] = useState("");
 
 
     async function handleClick(){
         console.log(email)
       try{  
-       const res = await fetch('/api/login',{
+       const res = await fetch('/api/register',{
             method:'POST',
             body: JSON.stringify({
+                name: name,
                 email: email,
-                password: password
+                password: password,
+                password2: password2
             }),
             headers: {
                 "content-type": "application/json; charset=UTF-8"
@@ -80,7 +84,7 @@ export default function Login(){
             const jsondata= await res.json();
             if( res.status!=='400'){
             console.log(jsondata)
-            history.push("/")
+            history.push("/login")
             }
             else {
                 alert("incorrect")
@@ -88,6 +92,7 @@ export default function Login(){
             }
       }
       catch{
+          alert("incorrect")
           console.log("incorrect details")
       }    
     }
@@ -98,6 +103,13 @@ export default function Login(){
         <Paper elevation={2} className={classes.loginForm}>
           <div className={classes.textfields}>
             <AccountCircleIcon className={classes.loginIcon} fontSize='large'/>
+            <TextField 
+                className={classes.textfield} 
+                name="name"
+                id="standard-basic" 
+                label="Name" 
+                onChange={(e)=>setName(e.target.value)}/>
+
             <TextField 
                 className={classes.textfield} 
                 name="email"
@@ -113,10 +125,18 @@ export default function Login(){
                 label="Password" 
                 onChange={(e)=>setPassword(e.target.value)}/>
 
+            <TextField 
+                type="password"
+                className={classes.textfield}
+                name="password2" 
+                id="standard-basic" 
+                label="Password" 
+                onChange={(e)=>setPassword2(e.target.value)}/>
+
             <Button 
                 className={classes.loginButton}
                 onClick={handleClick}>
-                    login
+                    Register
             </Button>
           </div>    
         </Paper>

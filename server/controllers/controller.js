@@ -15,7 +15,7 @@ const show = async (req,res)=>{
         res.json( result);
     })
     .catch((err)=>{
-        res.send('404'+err);
+        res.send('400'+err);
     })
 }
 
@@ -71,7 +71,7 @@ const save = async (req,res)=>{
         console.log('note saved');
     })
     .catch((err)=>{
-        res.status(400)
+        res.status('400')
         console.log(err);
     })
     console.log(newnote);
@@ -108,14 +108,15 @@ const saveUser = async (req,res)=>{
     {
         if(newUser.password===newUser.password2){
             const token =await newUser.generateAuthToken();
-            console.log(token)
+            console.log(token);
+            res.status('200').json("registered");
           }
           else{
-              res.json('password does not match')
+              res.status('400').json('password does not match');
           }
     }
     else {
-        res.json('Email already exists')
+        res.status('400').json('Email already exists');
     }
     
 }
@@ -138,11 +139,12 @@ const loginUser = async (req,res)=>{
                 //! redirect to home page       
             }   
         else{
-            res.status(400).json("wrong credentials");
+            res.status('400').json("wrong credentials");
             console.log("wrong cred")
         }     
     }
     catch{
+        res.status('400').json("wrong credentials");
         console.log("wrong email")
     }
 }

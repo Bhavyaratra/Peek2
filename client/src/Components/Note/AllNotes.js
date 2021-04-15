@@ -28,7 +28,7 @@ export const AllNotes = ()=>{
 
     useEffect(()=>{
      fetch('/api/notes').then(res=>{
-            if(res!=='400'){
+            if(res.status!=='400'){
                 return res.json()
             }
             else{

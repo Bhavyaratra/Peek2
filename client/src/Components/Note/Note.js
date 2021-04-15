@@ -23,14 +23,7 @@ const apiPost = async () => {
         "Content-type": "application/json; charset=UTF-8",
       },
     })
-    console.log(res.status)
-    const response = await res.json(); 
-        if(res.status===400){
-          console.log(response)
-          history.push("/login")
-          }
-      
-    
+    console.log(res.status)  
     }
     catch{
       console.log("note not posted")

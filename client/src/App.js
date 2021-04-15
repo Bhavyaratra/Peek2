@@ -3,6 +3,7 @@ import Navbar from './Components/Navigation/Nav';
 import Note from './Components/Note/Note';
 import {AllNotes} from './Components/Note/AllNotes';
 import Login from './Components/Login/Login';
+import Register from './Components/Register/Register';
 import {BrowserRouter as Router,
           Switch,
           Route,
@@ -22,6 +23,13 @@ function App() {
             <Login/>
            
           </Route>
+          
+          <Route path="/register">
+          
+            <Register/>
+           
+          </Route>
+
           <Route path="/">
             <Note/>
             <br/>
