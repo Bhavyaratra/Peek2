@@ -106,14 +106,16 @@ export default function Register(){
             <TextField 
                 className={classes.textfield} 
                 name="name"
-                id="standard-basic" 
+                id="standard-required" 
                 label="Name" 
+                required="true"
                 onChange={(e)=>setName(e.target.value)}/>
 
             <TextField 
                 className={classes.textfield} 
                 name="email"
-                id="standard-basic" 
+                type="email"
+                id="standard-required" 
                 label="Email" 
                 onChange={(e)=>setEmail(e.target.value)}/>
 
@@ -121,15 +123,16 @@ export default function Register(){
                 type="password"
                 className={classes.textfield}
                 name="password" 
-                id="standard-basic" 
+                id="standard-required"  
                 label="Password" 
+                required="true"
                 onChange={(e)=>setPassword(e.target.value)}/>
 
             <TextField 
                 type="password"
                 className={classes.textfield}
                 name="password2" 
-                id="standard-basic" 
+                id="standard-required"  
                 label="Password" 
                 onChange={(e)=>setPassword2(e.target.value)}/>
 

@@ -7,6 +7,7 @@ const auth = require('../auth/authenticate')
 router.get('/',Controller.start);
 router.get('/notes',auth,Controller.show);
 router.get('/notes/:id',Controller.getNote);
+router.get('/allnotes',Controller.showAllNotes);
 
 //* Users get requests 
 router.get('/register/',Controller.showUser);

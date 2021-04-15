@@ -10,6 +10,16 @@ const start =(req,res)=>{
 }
 
 const show = async (req,res)=>{
+    note.find({userID:req.user._id}).sort({createdAt: -1})
+    .then((result)=>{
+        res.json( result);
+    })
+    .catch((err)=>{
+        res.send('400'+err);
+    })
+}
+
+const showAllNotes = async (req,res)=>{
     note.find().sort({createdAt: -1})
     .then((result)=>{
         res.json( result);
@@ -66,6 +76,7 @@ const patchNote= async (req,res)=>{
 const save = async (req,res)=>{
     console.log("post");
     const newnote = new note(req.body);
+    newnote.userID = req.user._id;
     newnote.save()
     .then((result)=>{
         console.log('note saved');
@@ -103,7 +114,6 @@ const showUser = async (req,res)=>{
 const saveUser = async (req,res)=>{
     const newUser = new user(req.body);
     const userExist = await user.findOne({email: newUser.email});
-    console.log('use');
     if(!userExist)
     {
         if(newUser.password===newUser.password2){
@@ -152,6 +162,7 @@ const loginUser = async (req,res)=>{
 
 module.exports = {
     start,
+    showAllNotes,
     show,
     save,
     getNote,
