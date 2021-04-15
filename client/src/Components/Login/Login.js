@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import {useState} from 'react';
+import {useHistory} from 'react-router-dom';
 
 
 const useStyles = makeStyles(()=>({
@@ -57,14 +58,15 @@ const useStyles = makeStyles(()=>({
 }))
 
 export default function Login(){
-
+    const history = useHistory();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
 
     async function handleClick(){
         console.log(email)
-       await fetch('/api/login',{
+      try{  
+       const res = await fetch('/api/login',{
             method:'POST',
             body: JSON.stringify({
                 email: email,
@@ -73,11 +75,17 @@ export default function Login(){
             headers: {
                 "content-type": "application/json; charset=UTF-8"
             }
-        })
-        .then((res)=>res.json())
-        .then((json)=>console.log(json))
-
-       
+        });
+        
+            const jsondata= await res.json();
+            if(jsondata && res.status!==400){
+            console.log(jsondata)
+            history.push("/")
+            }
+      }
+      catch{
+          console.log("incorrect details")
+      }    
     }
 
     const classes = useStyles()
