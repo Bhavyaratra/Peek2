@@ -3,6 +3,7 @@ const note = require('../models/notes');
 const user = require('../models/users');
 const cookie = require('cookie');
 
+
 const start =(req,res)=>{
     res.send('Starting api page');
 
@@ -26,7 +27,7 @@ const getNote = (req,res)=>{
          res.json(result);
      })
      .catch(err => {
-        res.render('404');
+        res.status('400').json('400');
       });
 }
 
@@ -70,6 +71,7 @@ const save = async (req,res)=>{
         console.log('note saved');
     })
     .catch((err)=>{
+        res.status(400)
         console.log(err);
     })
     console.log(newnote);
@@ -122,27 +124,27 @@ const loginUser = async (req,res)=>{
 
     const loginEmail = req.body.email;
     const loginPassword = req.body.password;
-
-    user.findOne({email: loginEmail})
-    .then((result)=>{
-         if(result.password===loginPassword){
-            const token = result.generateAuthToken();
-
-            res.cookie("jwt",token,{
-                httpOnly:true,
-            });
-            res.send("user logged in");
-            console.log(result.name+" loggedin")
-            //! redirect to home page
-
-         }
-         else{
-             res.json("wrong password");
-         }
-    })
-    .catch(()=>{
-        res.send("Email not found");
-    })
+    try{
+        const result = await user.findOne({email: loginEmail});
+ 
+        if(result.password===loginPassword){
+                let token =await result.generateAuthToken();
+            
+                res.cookie("jwt",token,{
+                    httpOnly:true,
+                });
+                res.json("user logged in");
+                console.log(result.name+" loggedin")
+                //! redirect to home page       
+            }   
+        else{
+            res.status(400).json("wrong credentials");
+            console.log("wrong cred")
+        }     
+    }
+    catch{
+        console.log("wrong email")
+    }
 }
 
 
