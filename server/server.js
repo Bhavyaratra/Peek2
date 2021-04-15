@@ -1,6 +1,6 @@
 const express = require('express');
 const port = process.env.PORT || 3001;
-const cookie = require('cookie');
+const cookieParser = require('cookie-parser');
 const app = express();
 
 
@@ -8,6 +8,7 @@ const routes = require('./router/routes');
 
 app.use(express.json({limit:"30mb",extended: true}));
 app.use(express.urlencoded({limit:"30mb",extended: true}));
+app.use(cookieParser());
 
 require('./db/conn');
 
