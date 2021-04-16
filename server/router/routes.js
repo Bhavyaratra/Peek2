@@ -12,6 +12,7 @@ router.get('/allnotes',Controller.showAllNotes);
 //* Users get requests 
 router.get('/register/',Controller.showUser);
 router.get('/register/:id',Controller.getUser);
+router.get('/logout',Controller.logoutUser);
 ////////////////////////////////////
 
 router.delete('/notes/:id',Controller.deleteNote);
