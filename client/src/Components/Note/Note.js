@@ -50,14 +50,17 @@ const apiPost = async () => {
     return(<form className="input-new-note" onSubmit={handleSubmit}>
         <input 
             type="text"
+            id="standard-required"
             name="title" 
+            required
             placeholder="Title"
             onChange={handleChange} 
         />
         <br/>
         <textarea 
-            id="content" 
+            id="standard-required" 
             name="content" 
+            required
             placeholder="notes" 
             rows="5" cols="50"
             onChange={handleChange}  

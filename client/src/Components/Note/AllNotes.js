@@ -40,12 +40,8 @@ export const AllNotes = ()=>{
         })
     });
 
-    useEffect(()=>{
-        console.log(input);
-    },[input]);
-
     const useStyles = makeStyles((theme) => ({
-        root: {
+        card: {
           display: 'Inline',
           minWidth: 275,
           boxShadow: '0 3px 5px 2px rgba(22, 21, 21, .3)',
@@ -53,6 +49,10 @@ export const AllNotes = ()=>{
           background: 'rgb(39, 39, 39)',
           color: 'white',
           borderRadius: '8px',
+          transition: 'transform .2s',
+          '&:hover':{
+            transform: 'scale(1.1)'
+          }
         },
         TextArea:{
           background: '#272727',
@@ -136,7 +136,7 @@ export const AllNotes = ()=>{
             
             {data.map((notes)=>(
                 <div className="card" key={notes._id} >
-            <Card className={classes.root}>
+            <Card className={classes.card}>
                 <CardContent className="elements">
 
                 <TextareaAutosize
