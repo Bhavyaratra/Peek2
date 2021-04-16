@@ -159,6 +159,11 @@ const loginUser = async (req,res)=>{
     }
 }
 
+const logoutUser = async (req,res)=>{
+    res.clearCookie('jwt',{path:'/'});
+    res.status(200).send('logout');
+}
+
 
 module.exports = {
     start,
@@ -173,5 +178,6 @@ module.exports = {
     loginUser,
     showUser,
     getUser,
+    logoutUser,
 
 }
