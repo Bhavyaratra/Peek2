@@ -1,11 +1,14 @@
 # Peek2.0
-<img src="https://i.imgur.com/B4PU9qp.png"/>
+
+## MERN-Stack minimal Notes making app
+
+<img src="https://i.imgur.com/dTTzb4s.png"/>
 
 ## Tech used
 ```
-node.js
+MongoDB
 Express
 ReactJS
-MongoDB
+Node.js
 ```
 
