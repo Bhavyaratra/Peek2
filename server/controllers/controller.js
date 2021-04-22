@@ -144,7 +144,7 @@ const loginUser = async (req,res)=>{
                 res.cookie("jwt",token,{
                     httpOnly:true,
                 });
-                res.json("user logged in");
+                res.send(200).json("user logged in");
                 console.log(result.name+" loggedin")
                 //! redirect to home page       
             }   

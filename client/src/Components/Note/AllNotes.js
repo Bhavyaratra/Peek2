@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
 
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 
@@ -51,15 +52,20 @@ export const AllNotes = ()=>{
           borderRadius: '8px',
           transition: 'transform .2s',
           '&:hover':{
-            transform: 'scale(1.1)'
+            transform: 'scale(1.1)',
+          },
+          '&:focus':{
+            background: 'red'
           }
+                 
         },
         TextArea:{
           background: '#272727',
           border: '#272727',
           resize: 'none',
           color: 'white',
-          fontFamily: 'calibri'
+          fontFamily: 'calibri',
+         
         },
         TitleArea:{
           background: '#272727',
@@ -136,11 +142,13 @@ export const AllNotes = ()=>{
             
             {data.map((notes)=>(
                 <div className="card" key={notes._id} >
-            <Card className={classes.card}>
+               
+            <Card variant='outlined' className={classes.card}>
                 <CardContent className="elements">
 
                 <TextareaAutosize
                   id={notes._id}
+                  autocomplete="off"
                   label="Standard"
                   name="title"
                   className={classes.TitleArea} 
@@ -151,6 +159,7 @@ export const AllNotes = ()=>{
                 <br/>
                 <TextareaAutosize
                     id={notes._id}
+                    autocomplete="off"
                     name="content" 
                     className={classes.TextArea}
                     aria-label="minimum height" 
@@ -169,6 +178,7 @@ export const AllNotes = ()=>{
                 </IconButton>
 
             </Card>
+            
             </div>
             ))}
 
