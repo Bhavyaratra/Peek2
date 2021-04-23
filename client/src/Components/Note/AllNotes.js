@@ -7,7 +7,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
 
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 
@@ -148,7 +147,7 @@ export const AllNotes = ()=>{
 
                 <TextareaAutosize
                   id={notes._id}
-                  autocomplete="off"
+                  autoComplete="off"
                   label="Standard"
                   name="title"
                   className={classes.TitleArea} 
@@ -159,7 +158,7 @@ export const AllNotes = ()=>{
                 <br/>
                 <TextareaAutosize
                     id={notes._id}
-                    autocomplete="off"
+                    autoComplete="off"
                     name="content" 
                     className={classes.TextArea}
                     aria-label="minimum height" 

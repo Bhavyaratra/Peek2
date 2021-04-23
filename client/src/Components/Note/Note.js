@@ -2,14 +2,13 @@ import React from 'react';
 import './Note.css';
 
 import { useState } from "react";
-import{useHistory} from 'react-router-dom';
+
 
 
 export default function Note(){
 
     
 const [inputs, setInputs] = useState({});
-const history= useHistory();
 
 const apiPost = async () => {
    try{ 

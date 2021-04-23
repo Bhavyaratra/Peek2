@@ -1,10 +1,10 @@
 import React from 'react';
-import {useEffect,useContext} from 'react';
+import {useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
-import {UserContext} from '../../App'
+
 
 export default function Logout(){
-    const {state,dispatch} = useContext(UserContext)
+   
     const history= useHistory();
 
   useEffect(()=>{
@@ -18,7 +18,7 @@ export default function Logout(){
 
     })
     .then((res)=>{
-        dispatch({type:"USER", payload:false})
+    
         history.push('/login');
         if(res.status!==200){
             const error = new Error(res.error);

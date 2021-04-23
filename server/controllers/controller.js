@@ -142,9 +142,9 @@ const loginUser = async (req,res)=>{
                 let token =await result.generateAuthToken();
             
                 res.cookie("jwt",token,{
-                    httpOnly:true,
+                    httpOnly:false,
                 });
-                res.send(200).json("user logged in");
+                res.status(200).json("user logged in");
                 console.log(result.name+" loggedin")
                 //! redirect to home page       
             }   

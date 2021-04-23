@@ -4,9 +4,9 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import {useState,useContext} from 'react';
+import {useState} from 'react';
 import {useHistory} from 'react-router-dom';
-import {UserContext} from '../../App'
+
 
 const useStyles = makeStyles(()=>({
     container:{
@@ -59,7 +59,6 @@ const useStyles = makeStyles(()=>({
 
 export default function Login(){
 
-    const {state,dispatch} = useContext(UserContext)
 
     const history = useHistory();
     const [email, setEmail] = useState("");
@@ -80,8 +79,7 @@ export default function Login(){
             }
         });
         
-            if( res.status!=='400'){
-               dispatch({type:"USER",payload: true}) 
+            if( res.status===200){ 
           
             history.push("/")
             }

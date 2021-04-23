@@ -6,8 +6,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { UserContext } from "../../App";
-import {useContext} from 'react';
+import {useEffect,useState} from 'react';
 
 const useStyles = makeStyles((theme) => ({
   navbar: {
@@ -35,11 +34,20 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ButtonAppBar() {
   const classes = useStyles();
-  const {state,dispatch} = useContext(UserContext)
+  const [user,setUser]= useState({});
+
+  useEffect(() => {
+    const intervalId = setInterval(()=>{
+      let userstring = document.cookie;
+      setUser(userstring);
+      // console.log(userstring)
+    },1000);
+    return () => clearInterval(intervalId);
+  });
 
   const RenderMenu=()=>{
 
-    if(!state){
+    if(!user){
       return(<>
 
       <Link to="/login">
