@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
   navButton: {
       color: "black",
       background: "crimson",
+      
       '&:hover': {
           background: "white"
       },
@@ -29,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar:{
       background: 'black'
+  },
+  Link:{
+    textDecoration:'none',
   }
 }));
 
@@ -50,10 +54,10 @@ export default function ButtonAppBar() {
     if(!user){
       return(<>
 
-      <Link to="/login">
+      <Link style={{ textDecoration: 'none' }} to="/login">
       <Button color="inherit" className={classes.navButton}>Login</Button>
       </Link>
-      <Link to="/register">
+      <Link style={{ textDecoration: 'none' }} to="/register">
       <Button color="inherit" className={classes.navButton}>Signup</Button>
       </Link>
         
@@ -61,7 +65,7 @@ export default function ButtonAppBar() {
     }  
       else {
         return(<>
-          <Link to="/logout">
+          <Link style={{ textDecoration: 'none' }} to="/logout">
           <Button color="inherit" className={classes.navButton}>Logout</Button>
           </Link>
           </>)

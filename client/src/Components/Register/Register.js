@@ -66,20 +66,22 @@ export default function Register(){
 
 
     async function handleClick(){
+        
         console.log(email)
-      try{  
-       const res = await fetch('/api/register',{
-            method:'POST',
-            body: JSON.stringify({
-                name: name,
-                email: email,
-                password: password,
-                password2: password2
-            }),
-            headers: {
-                "content-type": "application/json; charset=UTF-8"
-            }
-        });
+        try{  
+          if(name!=="" && email!=="" && password!=="" &&password2!==""){
+            const res = await fetch('/api/register',{
+                method:'POST',
+                body: JSON.stringify({
+                    name: name,
+                    email: email,
+                    password: password,
+                    password2: password2
+                }),
+                headers: {
+                    "content-type": "application/json; charset=UTF-8"
+                }
+            });
         
             const jsondata= await res.json();
             if( res.status!=='400'){
@@ -90,6 +92,10 @@ export default function Register(){
                 alert("incorrect")
                 console.log("incorrect")
             }
+          }else{
+              alert("please fill all details")
+          }
+       
       }
       catch{
           alert("incorrect")
