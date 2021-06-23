@@ -35,9 +35,6 @@ export const AllNotes = ()=>{
               history.push("/login");
             }
         }).then(data =>setdata(data))
-        .catch((err)=>{
-          history.push("/login");
-        })
     });
 
     const useStyles = makeStyles((theme) => ({

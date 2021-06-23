@@ -8,42 +8,34 @@ import { useState } from "react";
 export default function Note(){
 
     
-const [inputs, setInputs] = useState({});
+const [title, setTitle] = useState("");
+const [content, setContent] = useState("");
 
 const apiPost = async () => {
-   try{ 
-    const res = await fetch("api/notes", {
+      fetch("api/notes", {
       method: "POST",
       body: JSON.stringify({
-        title: inputs.title,
-        content: inputs.content,
+        title: title,
+        content: content,
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
+    }).then(res=>{
+      console.log(res)
+      setTitle("");
+      setContent("");
     })
-    console.log(res.status)  
-    }
-    catch{
-      console.log("note not posted")
-    }
-     
+    .catch((err)=>{
+      console.log(err.message)
+    })
 
   };
 
-  const handleChange = (event) => {
-    event.persist();
-    setInputs((inputs) => ({
-      ...inputs,
 
-      [event.target.name]: event.target.value,
-    }));
-  };
-
-  const handleSubmit = (event) => {
+  const handleSubmit =  (event) => {
     event.preventDefault();
     apiPost();
-    console.log(inputs);
   };
 
     return(<form className="input-new-note" onSubmit={handleSubmit}>
@@ -53,23 +45,25 @@ const apiPost = async () => {
             name="title" 
             required
             placeholder="Title"
-            onChange={handleChange} 
+            value={title}
+            onChange={(e)=>{setTitle(e.target.value)}} 
         />
         <br/>
         <textarea 
             id="standard-required" 
             name="content" 
             required
-            placeholder="notes" 
+            placeholder="notes..." 
+            value={content}
             rows="5" cols="50"
-            onChange={handleChange}  
+            onChange={(e)=>{setContent(e.target.value)}}  
         > 
              </textarea>
         <br/>
         <input 
             type="submit" 
             value="save" 
-            onChange={handleChange}
+
         />
     </form>);
 }

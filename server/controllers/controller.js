@@ -79,10 +79,13 @@ const save = async (req,res)=>{
     newnote.userID = req.user._id;
     newnote.save()
     .then((result)=>{
+        res.status(200).json({
+            success:true
+        })
         console.log('note saved');
     })
     .catch((err)=>{
-        res.status('400')
+        res.status(400)
         console.log(err);
     })
     console.log(newnote);
