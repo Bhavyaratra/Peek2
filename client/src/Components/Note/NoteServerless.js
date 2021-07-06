@@ -1,35 +1,35 @@
 import React from 'react';
 import './Note.css';
+import { useState} from "react";
+import { AllNotes } from './AllNotesServerless';
+import { useEffect } from 'react';
 
-import { useState } from "react";
+export const Note =(props)=>{
 
-
-export default function Note(){
-
-    
+const [userid,setUserid]= useState(""); 
 const [title, setTitle] = useState("");
 const [content, setContent] = useState("");
+const [newnote, setNewnote] = useState({});
+
+useEffect(()=>{
+  let userstring = localStorage.getItem('user');
+  setUserid(userstring);
+},[])
 
 const apiPost = async () => {
-      fetch("api/notes", {
-      method: "POST",
-      body: JSON.stringify({
-        title: title,
-        content: content,
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    }).then(res=>{
-      console.log(res)
-      setTitle("");
-      setContent("");
-    })
-    .catch((err)=>{
-      console.log(err.message)
-    })
-
-  };
+  console.log("UserID: ")
+  console.log(userid)
+  const newItem={
+    title: title,
+    content: content,
+    userID: "6078e82a78ca65009c6f4bc4"
+  }
+  const result = props.app.currentUser.functions.createNote(newItem);
+  setNewnote(newItem);
+  setTitle("");
+  setContent("");
+  console.log(result)
+};
 
 
   const handleSubmit =  (event) => {
@@ -37,7 +37,9 @@ const apiPost = async () => {
     apiPost();
   };
 
-    return(<form className="input-new-note" onSubmit={handleSubmit}>
+    return(
+      <div>
+    <form className="input-new-note" onSubmit={handleSubmit}>
         <input 
             type="text"
             id="standard-required"
@@ -64,5 +66,11 @@ const apiPost = async () => {
             value="save" 
 
         />
-    </form>);
+    </form>
+    <br/>
+    <AllNotes newNote={newnote} userID="6078e82a78ca65009c6f4bc4" app={props.app}/>
+    </div>
+    );
+
+
 }

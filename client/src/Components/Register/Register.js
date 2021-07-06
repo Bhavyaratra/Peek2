@@ -57,7 +57,7 @@ const useStyles = makeStyles(()=>({
  
 }))
 
-export default function Register(){
+export default function Register(props){
     const history = useHistory();
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -67,37 +67,25 @@ export default function Register(){
 
     async function handleClick(){
         
-        console.log(email)
         try{  
-          if(name!=="" && email!=="" && password!=="" &&password2!==""){
-            const res = await fetch('/api/register',{
-                method:'POST',
-                body: JSON.stringify({
+          if(name!=="" && email!=="" && password!=="" &&password2!==""&& password===password2){
+
+               const newUser = {
                     name: name,
                     email: email,
                     password: password,
                     password2: password2
-                }),
-                headers: {
-                    "content-type": "application/json; charset=UTF-8"
                 }
-            });
-        
-            const jsondata= await res.json();
-            if( res.status!=='400'){
-            console.log(jsondata)
-            history.push("/login")
+                const res = await props.app.currentUser.functions.register(newUser);
+            
+                if(res){
+                    console.log(res)
+                    history.push("/login")
+                }
+            }else{
+                alert("please fill all details!")
             }
-            else {
-                alert("incorrect")
-                console.log("incorrect")
-            }
-          }else{
-              alert("please fill all details")
-          }
-       
-      }
-      catch{
+        }catch(err){
           alert("incorrect")
           console.log("incorrect details")
       }    

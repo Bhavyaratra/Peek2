@@ -1,34 +1,49 @@
 import './App.css';
-
 import Navbar from './Components/Navigation/Nav';
-import Note from './Components/Note/Note';
-import {AllNotes} from './Components/Note/AllNotes';
+import {Note} from './Components/Note/NoteServerless';
 import Login from './Components/Login/Login';
 import Logout from './Components/Logout/Logout';
+import Filedata from './Components/Note/Filedata';
 import Register from './Components/Register/Register';
-
+import { useEffect } from 'react';
 import {BrowserRouter as Router,
           Switch,
           Route,
         }  from 'react-router-dom';
+
+import * as Realm from "realm-web";
+
+const REALM_APP_ID = "peeknote-niylh"; // e.g. myapp-abcde
+const app = new Realm.App({ id: REALM_APP_ID });
+const credentials = Realm.Credentials.anonymous();  
+
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
 
 
 const App= ()=> {
 
+  useEffect(()=>{
+    app.logIn(credentials)
+    .then(res=>{
+      console.log(res.id);
+    })
+  
+  },[]);
   
   return (<>
-
-       
-
         <Router>
         <div className="App"> 
         <Navbar/>
         </div> 
         <Switch>
+        <Route exact path="/filedata">
+          
+          <Filedata app={app}/>
+         
+        </Route>
           <Route path="/login">
           
-            <Login/>
+            <Login app={app}/>
            
           </Route>
 
@@ -40,14 +55,14 @@ const App= ()=> {
           
           <Route path="/register">
           
-            <Register/>
+            <Register app={app}/>
            
           </Route>
 
           <Route path="/">
-            <Note/>
+            <Note app={app}/>
             <br/>
-            <AllNotes/>
+           {/* <AllNotes/> */}
           </Route>
         </Switch>
         </Router>  

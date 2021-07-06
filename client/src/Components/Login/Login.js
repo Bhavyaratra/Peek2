@@ -4,9 +4,13 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
+import * as Realm from "realm-web";
 
+const REALM_APP_ID = "peeknote-niylh"; // e.g. myapp-abcde
+const app = new Realm.App({ id: REALM_APP_ID });
+const credentials = Realm.Credentials.anonymous();
 
 const useStyles = makeStyles(()=>({
     container:{
@@ -64,24 +68,22 @@ export default function Login(){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-
+    useEffect(()=>{
+        const user = app.logIn(credentials)
+        console.log(user);
+      },[]);
+      
     async function handleClick(){
         console.log(email)
       try{  
-       const res = await fetch('/api/login',{
-            method:'POST',
-            body: JSON.stringify({
+            const userCred = {
                 email: email,
                 password: password
-            }),
-            headers: {
-                "content-type": "application/json; charset=UTF-8"
             }
-        });
-        
-            if( res.status===200){ 
-          
-            history.push("/")
+            const res = await app.currentUser.functions.loginUser(userCred)
+            if(res){ 
+                localStorage.setItem('user',res._id.toString())
+                history.push("/")
             }
             else {
                 alert("incorrect")

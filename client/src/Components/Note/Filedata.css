@@ -1,0 +1,32 @@
+.filedata_container{
+    display: block;
+    flex-direction: column;
+}
+.fd_btn{
+    margin-top: 10px;
+    margin-left: 4%;
+}
+.fd_table{
+    margin-top: 15px;
+    margin-left: 4%;
+    margin-right: 4%;
+}
+.fd_input{
+    display:block;
+    margin-top: 2%;
+    margin-left: 4%;
+    border: none;
+    background-color: #13aa52;
+    font-size: large
+}
+.fd_submit{
+    padding:  4px 20px;
+    background-color: #13aa52;
+    font-size: medium;
+    border:#13aa52;
+}
+.fd_submit_div{
+    margin-top: 10px;
+    display:flex;
+    justify-content: center;
+}
