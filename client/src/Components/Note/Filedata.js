@@ -1,8 +1,8 @@
 import React from 'react';
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
-import './Filedata.css'
+import './Styles/Filedata.css'
 import XLSX from 'xlsx';
 import DataTable from "react-data-table-component";
 
@@ -10,6 +10,12 @@ import DataTable from "react-data-table-component";
 export default function Filedata(props){
     
     const [items, setItems] = useState([]);
+    const [userid,setUserid]= useState(""); 
+
+    useEffect(()=>{
+      let userstring = localStorage.getItem('user');
+      setUserid(userstring);
+    },[])
 
     const readExcel = (file) => {
       const promise = new Promise((resolve, reject) => {
@@ -31,6 +37,15 @@ export default function Filedata(props){
       })
     };
 
+    const handleSubmit=async (e)=>{
+      e.preventDefault();
+
+        var objArray = items;
+        objArray.forEach(obj=>obj.userID = userid)
+        const res = await props.app.currentUser.functions.createMany(objArray);
+        console.log(res);
+    }
+    
     const columns = [
       
       {
@@ -43,14 +58,7 @@ export default function Filedata(props){
       },
     ];
   
-    const handleSubmit=async (e)=>{
-      e.preventDefault();
-        console.log("clickes")
-        var objArray = items;
-        objArray.forEach(obj=>obj.userID = "6078e82a78ca65009c6f4bc4")
-        const res = await props.app.currentUser.functions.createMany(objArray);
-        console.log(res);
-    }
+
 
     return (
       <div className="filedata_container">

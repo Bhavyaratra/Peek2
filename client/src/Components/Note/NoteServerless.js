@@ -1,5 +1,5 @@
 import React from 'react';
-import './Note.css';
+import './Styles/Note.css';
 import { useState} from "react";
 import { AllNotes } from './AllNotesServerless';
 import { useEffect } from 'react';
@@ -17,12 +17,11 @@ useEffect(()=>{
 },[])
 
 const apiPost = async () => {
-  console.log("UserID: ")
   console.log(userid)
   const newItem={
     title: title,
     content: content,
-    userID: "6078e82a78ca65009c6f4bc4"
+    userID: userid
   }
   const result = props.app.currentUser.functions.createNote(newItem);
   setNewnote(newItem);
@@ -68,7 +67,7 @@ const apiPost = async () => {
         />
     </form>
     <br/>
-    <AllNotes newNote={newnote} userID="6078e82a78ca65009c6f4bc4" app={props.app}/>
+    <AllNotes newNote={newnote} userID={userid} app={props.app}/>
     </div>
     );
 

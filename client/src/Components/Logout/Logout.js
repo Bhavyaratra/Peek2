@@ -8,6 +8,7 @@ export default function Logout(){
 const history= useHistory();
 
   useEffect(()=>{
+        localStorage.removeItem("user")
         history.push('/login');
         }
     ,[]);
