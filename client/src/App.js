@@ -5,6 +5,8 @@ import Login from './Components/Login/Login';
 import Logout from './Components/Logout/Logout';
 import Filedata from './Components/Note/Filedata';
 import Register from './Components/Register/Register';
+import {GeneratePDF} from './Components/Pdf/GeneratePDF';
+
 import { useEffect } from 'react';
 import {BrowserRouter as Router,
           Switch,
@@ -36,11 +38,15 @@ const App= ()=> {
         <Navbar/>
         </div> 
         <Switch>
+
         <Route exact path="/filedata">
-          
           <Filedata app={app}/>
-         
         </Route>
+
+        <Route exact path="/generatepdf">
+          <GeneratePDF app={app}/>
+        </Route>
+
           <Route path="/login">
           
             <Login app={app}/>

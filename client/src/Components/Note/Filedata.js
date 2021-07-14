@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import './Styles/Filedata.css'
 import XLSX from 'xlsx';
 import DataTable from "react-data-table-component";
-
+import {create_many} from "../../Functions/realm";
 
 export default function Filedata(props){
     
@@ -33,21 +33,16 @@ export default function Filedata(props){
       });
       promise.then((data)=>{
         setItems(data);
-        console.log(data);
       })
     };
 
     const handleSubmit=async (e)=>{
       e.preventDefault();
-
-        var objArray = items;
-        objArray.forEach(obj=>obj.userID = userid)
-        const res = await props.app.currentUser.functions.createMany(objArray);
-        console.log(res);
+      const res =await create_many(props.app,items,userid);
+      console.log(res);
     }
     
     const columns = [
-      
       {
         name: "Title",
         selector: "title",
@@ -69,6 +64,7 @@ export default function Filedata(props){
             type="file"
             onChange={(e) => {
               const file = e.target.files[0];
+              console.log(file);
               readExcel(file);
             }}
           />

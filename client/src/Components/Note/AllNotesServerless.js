@@ -9,12 +9,13 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import SaveRoundedIcon from '@material-ui/icons/SaveRounded';
 import {Link} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
-import XLSX from 'xlsx';
-import * as FileSaver from 'file-saver';
-import * as autoTable from 'jspdf-autotable';
-import {jsPDF} from 'jspdf';
+
+import { get_allnotes, delete_note, edit_note } from '../../Functions/realm';
+import { downloadPdfTable } from '../../Functions/downloadPdfTable';
+import { downloadExcel } from '../../Functions/downloadExcel';
 
 export const AllNotes = (props)=>{
+
 
   const useStyles = makeStyles((theme) => ({
     card: {
@@ -71,11 +72,15 @@ export const AllNotes = (props)=>{
       '&:hover':{
         background: '#1da1f2'
       }
+    },
+    link:{
+      textDecoration: 'none',
+      color: '#c6ff00'
     }
 
   }));
 
-//*functions
+
 const classes = useStyles();
 
     const [count,setCount] = useState(0);
@@ -85,17 +90,14 @@ const classes = useStyles();
       title:"",
       content:""
     });
-
+    const [pdfurl,setPdfurl] = useState("");
+    const [xlurl,setXlurl] = useState("");
+    
     //* getallnotes0()
     useEffect(()=>{
-      // console.log("getnote")
       if(props.userID){
-      props.app.currentUser.functions.getallnotes0(props.userID)
+      get_allnotes(props.app,props.userID)
       .then(result=>{
-        // console.log(count)
-        // console.log(props.newNote)
-        // console.log(props.userID)
-        // console.log(result)
         setdata(result)
       })}
     },[count,props.newNote,props.userID]);
@@ -118,85 +120,33 @@ const classes = useStyles();
         [target.name]: target.value,
       })
     }
-
-    //* Delete function
-    async function del(id){
-      console.log(id.toString());
-      const result = await props.app.currentUser.functions.deleteNote(id.toString());
-      console.log(result);
-      setCount(count=>count+1);
-    }
-    
-    //* Edit function  
-    async function edit(note_id){
-      const update = {
-        title: input.title,
-        content: input.content,
-        userID: input.userID 
-      }
-      const result = await props.app.currentUser.functions.editNote(note_id.toString(),update);
-      console.log(result);
-    }  
-
-    //*Import notes to excel and Download
-    const downloadExcel=()=>{
-      const fileName = 'sheet'
-      const fileType = 'application/xlsx;charset=UTF-8';
-      const fileExtension = '.xlsx';
-
-      //convert ObjectId to string
-      const dataString = data;
-      dataString.forEach((obj)=>obj._id=obj._id.toString());
-
-      console.log(dataString);
-      const ws = XLSX.utils.json_to_sheet(dataString);
-      const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
-      const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-      const xldata = new Blob([excelBuffer], {type: fileType});
-      FileSaver.saveAs(xldata, fileName + fileExtension);
-      
-    }
-
-    //Import notes to PDF in table format and Download
-    const downloadTablePDF=()=>{
-      const doc = new jsPDF();
-      var col = ["Title","Contents"];
-      var rows=[];
-      doc.text(13, 10, 'NOTES');
-      doc.setFontSize(9);
-      data.forEach((obj,i)=>{
-       var temp = [obj.title,obj.content];
-       rows.push(temp);
-      });
-      doc.autoTable(col, rows,{startY: 20});
-      doc.save('notes.pdf')
-     }
-
-    //*Import notes to PDF and Download
-    const downloadPDF=()=>{
-     const doc = new jsPDF();
-     doc.text(10, 10, 'All NOTES');
-     doc.setFontSize(9);
-     data.forEach((obj,i)=>{
-      doc.text("Title: "+obj.title + "\nContent: "+obj.content,10,20 +(i*20));
-     })
      
-     doc.save('notes.pdf')
-    }
     
-
     return(<div >
       <Link style={{ textDecoration: 'none' }} to="/filedata">
         <Button className={classes.btn}>File Data</Button>
       </Link>
     
-        <Button className = {classes.btn_dwnld}
-                onClick={downloadExcel}>excel
-        </Button>
-        <Button className = {classes.btn_dwnld}
-                onClick={downloadPDF}>pdf
-        </Button>
+      <Link style={{ textDecoration: 'none' }} to="/generatepdf">
+        <Button className={classes.btn}>Text-Pdf</Button>
+      </Link>
     
+        <Button className = {classes.btn_dwnld}
+                onClick={async ()=>downloadExcel(props.app,data).then((res)=>{
+                  setXlurl(res);
+                }
+                )}>excel
+        </Button>
+        <Button className = {classes.btn_dwnld}  //*Import notes to PDF and Download
+                onClick={async ()=>downloadPdfTable(props.app,data).then((res)=>{
+                  setPdfurl(res);
+                  console.log(data);
+                }
+                )}>pdf  
+        </Button>
+                {pdfurl? <a className={classes.link} href={pdfurl} >download pdf</a>:<span></span>}
+                &nbsp;&nbsp;&nbsp;
+                {xlurl? <a className={classes.link} href={xlurl} >download excel</a>:<span></span>}
         <h1>ALL NOTES</h1>
         {/* <ul className="list"> */}
             
@@ -230,10 +180,23 @@ const classes = useStyles();
 
                 </CardContent >
 
-                <IconButton aria-label="delete" className={classes.FloatRight} onClick={()=>del(notes._id)} >
+                <IconButton aria-label="delete" className={classes.FloatRight} 
+                      onClick={()=>{
+                              delete_note(props.app,notes._id)     //* Delete function
+                              .then(()=> setCount(count=>count+1));
+                        }
+                      }>
                   <DeleteIcon fontSize="small" />
                 </IconButton>
-                <IconButton aria-label="SveRoudedIcon" className={classes.FloatRight} onClick={()=>edit(notes._id)} >
+                <IconButton aria-label="SveRoudedIcon" className={classes.FloatRight} 
+                      onClick={()=>{
+                        const update = {
+                          title: input.title,
+                          content: input.content,
+                          userID: input.userID 
+                        }
+                          edit_note(props.app,notes._id,update)     //* Edit function  
+                        }} >
                   <SaveRoundedIcon fontSize="small" />
                 </IconButton>
 

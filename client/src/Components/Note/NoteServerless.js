@@ -3,6 +3,7 @@ import './Styles/Note.css';
 import { useState} from "react";
 import { AllNotes } from './AllNotesServerless';
 import { useEffect } from 'react';
+import {create_note} from '../../Functions/realm.js';
 
 export const Note =(props)=>{
 
@@ -16,24 +17,19 @@ useEffect(()=>{
   setUserid(userstring);
 },[])
 
-const apiPost = async () => {
-  console.log(userid)
-  const newItem={
-    title: title,
-    content: content,
-    userID: userid
-  }
-  const result = props.app.currentUser.functions.createNote(newItem);
-  setNewnote(newItem);
-  setTitle("");
-  setContent("");
-  console.log(result)
-};
 
-
-  const handleSubmit =  (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    apiPost();
+    const newItem={
+      title: title,
+      content: content,
+      userID: userid
+    }
+    const res = await create_note(props.app,newItem); //createNote(newItem)
+    console.log(res)
+    setNewnote(newItem);
+    setTitle("");
+    setContent("");
   };
 
     return(
