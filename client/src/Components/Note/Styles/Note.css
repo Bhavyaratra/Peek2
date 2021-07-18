@@ -63,6 +63,23 @@ h1{
     margin-bottom: 5%;
 }
 .link{
+    margin-left: 2rem;
     text-decoration: none;
-    color:#c6ff00
+    color:#29099c;
+    border: 1px solid  rgb(0, 0, 0) ;
+    border-radius: 5px;
+    padding:4px;
+    font-size: 22px;
 }
+
+.link:visited {
+    color: rgb(68, 129, 11);
+  }
+  
+.link:hover {
+    color: #3e0fe7
+  }
+  
+.link:active {
+    color: rgb(255, 0, 55);
+  }

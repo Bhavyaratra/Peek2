@@ -75,7 +75,12 @@ export const AllNotes = (props)=>{
     },
     link:{
       textDecoration: 'none',
-      color: '#c6ff00'
+      color: '#29099c',
+     
+      fontSize: '18px',
+      fontStyle:'bold',
+      padding: '4px'
+
     }
 
   }));
@@ -128,6 +133,10 @@ const classes = useStyles();
       </Link>
     
       <Link style={{ textDecoration: 'none' }} to="/generatepdf">
+        <Button className={classes.btn}>Generate-Pdf</Button>
+      </Link>
+
+      <Link style={{ textDecoration: 'none' }} to="/inputpdf">
         <Button className={classes.btn}>Text-Pdf</Button>
       </Link>
     

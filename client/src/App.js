@@ -6,6 +6,9 @@ import Logout from './Components/Logout/Logout';
 import Filedata from './Components/Note/Filedata';
 import Register from './Components/Register/Register';
 import {GeneratePDF} from './Components/Pdf/GeneratePDF';
+import {InputPDF} from './Components/Pdf/InputPDF';
+import {Weatherapi} from './Components/Apicomponent/Weatherapi';
+import {Richtexttable} from './Components/Pdf/RichTextTable';
 
 import { useEffect } from 'react';
 import {BrowserRouter as Router,
@@ -39,12 +42,24 @@ const App= ()=> {
         </div> 
         <Switch>
 
+        <Route exact path="/richtexttable">
+          <Richtexttable app={app}/>
+        </Route>
+
+        <Route exact path="/weatherapi">
+          <Weatherapi app={app}/>
+        </Route>
+
         <Route exact path="/filedata">
           <Filedata app={app}/>
         </Route>
 
         <Route exact path="/generatepdf">
           <GeneratePDF app={app}/>
+        </Route>
+
+        <Route exact path="/inputpdf">
+          <InputPDF app={app}/>
         </Route>
 
           <Route path="/login">

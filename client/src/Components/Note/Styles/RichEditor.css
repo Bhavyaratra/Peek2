@@ -1,0 +1,51 @@
+.wrapper-class {
+  padding: 2rem;
+  
+}
+.editor-class {
+  background-color:rgb(243, 234, 234);
+  padding: 1rem;
+  border: 1px solid rgb(240, 235, 235);
+}
+.toolbar-class {
+  border: 1px solid #ccc;
+}
+.input-mail-container{
+    margin-left: 2rem;
+    display: flex;
+    align-items: center;
+    color:rgb(10, 10, 10);
+    font-size: 20px;
+}
+.input-mail{
+    margin-left: 1rem;
+    height: 20px;
+    width: 200px;
+    border-radius: 4px;
+    padding:4px
+}
+.input-mail-btn{
+    margin-left: 1rem;
+    font-size: 16px;
+    padding:5px 8px;
+    border :none;
+    border-radius: 4px;
+    color:rgb(0, 0, 0);
+    background-color: #dc143c;
+}
+.input-mail-btn:hover{background-color:#ff3059;}
+
+.input-mail-btn:focus{background-color:#ff3059;}
+
+.input-pdf-btn{
+    margin-left: 2rem;
+    font-size: 16px;
+    padding:5px 8px;
+    border :none;
+    border-radius: 4px;
+    color:rgb(0, 0, 0);
+    background-color: #dc143c;
+}
+.input-pdf-btn:hover{background-color:#ff3059;}
+
+.input-pdf-btn:focus{background-color:#ff3059;}
